@@ -1,0 +1,20 @@
+name : Deploy to testing env php-8
+on:
+  push:
+    branches: [ php-8 ]
+
+jobs:
+  first:
+    name: Pull from github
+    runs-on: ubuntu-latest
+    steps:
+    - name: deploy dev https://php-8-ut.yntkts.my.id/
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST_PHP_8 }}
+        username: ${{ secrets.USER }}
+        key: ${{ secrets.MY_KEY }}
+        port: ${{ secrets.PORT }}
+        script: |
+          cd ${{ secrets.DIR_PHP_8 }}
+          git pull origin php-8
